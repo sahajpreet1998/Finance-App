@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  mysql_db:
+    image: mysql:8.0
+    container_name: finance_mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+  finance_app:
+    build: .
+    container_name: finance_streamlit
+    restart: always
+    ports:
+      - "8501:8501"
+    depends_on:
+      - mysql_db
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+
+volumes:
+  mysql_data:

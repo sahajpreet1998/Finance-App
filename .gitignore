@@ -1,0 +1,22 @@
+# Sensitive keys & passwords
+.env
+
+# Python runtime artifacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Docker persistent volume & logs
+mysql_data/
+*.log
+
+# Bank statement archives
+uploads/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+
+# Misc
+Python/
+Downloads/

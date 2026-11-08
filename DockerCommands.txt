@@ -1,0 +1,69 @@
+📦 Docker & Docker Compose Reference Sheet
+1. App Lifecycle & Container Management
+Start the App in the Background (Detached Mode)
+
+Bash
+docker compose up -d
+Launches all services (Streamlit & MySQL) in the background. Terminal remains free to use.
+
+Rebuild and Start (After Code / Library Changes)
+
+Bash
+docker compose up -d --build
+Rebuilds Docker container images (e.g., after updating Dockerfile or requirements.txt) and starts the app. Your database data remains safe.
+
+Pause / Stop Services (Without Removing Containers)
+
+Bash
+docker compose stop
+Pauses the containers. Database state and container instances are preserved intact.
+
+Resume Stopped Services
+
+Bash
+docker compose start
+Restarts previously stopped containers without rebuilding or resetting state.
+
+Restart Services (Apply .env Changes)
+
+Bash
+docker compose restart
+Quickly restarts running containers to pick up updated environment variables without rebuilding images.
+
+Shut Down Services (Safe for Data)
+
+Bash
+docker compose down
+Stops and removes the containers and network bridge. Your persistent MySQL database volume is NOT deleted.
+
+2. Monitoring & Troubleshooting
+View Active Containers & Status
+
+Bash
+docker compose ps
+Displays container names, running state, and mapped ports (e.g., 8501, 3307).
+
+Stream Live Application Logs
+
+Bash
+docker compose logs -f finance_app
+Follows live log output (including Python logger messages) streaming from the Streamlit container. Press Ctrl + C to stop viewing.
+
+View Database Logs
+
+Bash
+docker compose logs -f mysql_db
+Streams logs specifically from the MySQL database container for connection or schema initialization checks.
+
+3. Data Integrity & Maintenance
+Inspect Persistent Volumes
+
+Bash
+docker volume ls
+Lists all persistent storage volumes managed by Docker on your host machine (e.g., mysql_data).
+
+⚠️ DANGER ZONE: Wipe Everything & Start Fresh
+
+Bash
+docker compose down -v
+Stops containers AND PERMANENTLY DELETES the attached database volume (mysql_data). Use only if you explicitly want to erase all data and re-initialize from scratch.
