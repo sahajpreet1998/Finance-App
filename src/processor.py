@@ -8,7 +8,8 @@ import re
 import hashlib
 from datetime import datetime
 from config import AI_MODEL
-import db_manager as db
+from src import db_manager as db
+
 
 # Initialize the logger for this specific file
 logger = logging.getLogger(__name__)
